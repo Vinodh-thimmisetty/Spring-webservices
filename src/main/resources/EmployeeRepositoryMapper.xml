@@ -39,7 +39,8 @@
 
 	<select id="isEmployeeExist">
 		SELECT COUNT(1) FROM VINODH.EMPLOYEE WHERE
-		#{employee.employeeId}
+		EMP_ID =
+		#{employeeId}
 	</select>
 
 	<insert id="saveEmployee" keyProperty="employeeId">

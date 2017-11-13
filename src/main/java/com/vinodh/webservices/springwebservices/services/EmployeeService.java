@@ -24,6 +24,6 @@ public interface EmployeeService {
 
 	int deleteAllEmployees();
 
-	boolean isEmployeeExist(Employee employee);
+	boolean isEmployeeExist(long employeeId);
 
 }

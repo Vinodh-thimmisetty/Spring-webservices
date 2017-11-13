@@ -29,8 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public List<Employee> findAllEmployees() {
-
-		return null;
+		return employeeRepository.findAllEmployees();
 	}
 
 	@Override
@@ -64,13 +63,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public boolean isEmployeeExist(Employee employee) {
-
-		return false;
+	public boolean isEmployeeExist(long employeeId) {
+		return (employeeRepository.isEmployeeExist(employeeId) > 0) ? Boolean.TRUE : Boolean.FALSE;
 	}
 
 	@Override
-	public int saveMultipleEmployees(List<Employee> employees) { 
+	public int saveMultipleEmployees(List<Employee> employees) {
 		return 0;
 	}
 
