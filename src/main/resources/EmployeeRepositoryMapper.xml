@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.vinodh.webservices.springwebservices.repository.EmployeeRepository">
+
+	<!-- Map the Table to Domain Object -->
+	<resultMap type="Employee" id="employee">
+		<id column="EMP_ID" property="employeeId" />
+		<result column="EMP_NAME" property="employeeName" />
+		<result column="EMP_PHONE" property="employeePhone" />
+		<result column="EMP_SALARY" property="employeeSalary" />
+		<result column="EMP_EMAIL" property="employeeEmail" />
+		<result column="EMP_DOB" property="employeeDOB" />
+	</resultMap>
+
+
+	<select id="findAllEmployees" resultType="employee">
+		SELECT
+		EMP_ID,EMP_NAME,EMP_PHONE,EMP_SALARY,EMP_EMAIL,EMP_DOB
+		FROM
+		VINODH.EMPLOYEE
+	</select>
+
+	<select id="findById" resultType="employee">
+		SELECT
+		EMP_ID,EMP_NAME,EMP_PHONE,EMP_SALARY,EMP_EMAIL,EMP_DOB
+		FROM
+		VINODH.EMPLOYEE WHERE EMP_ID = #{employeeId}
+	</select>
+
+	<select id="findByName" resultType="employee">
+		SELECT
+		EMP_ID,EMP_NAME,EMP_PHONE,EMP_SALARY,EMP_EMAIL,EMP_DOB
+		FROM
+		VINODH.EMPLOYEE WHERE EMP_NAME = #{employeeName}
+	</select>
+
+	<select id="isEmployeeExist">
+		SELECT COUNT(1) FROM VINODH.EMPLOYEE WHERE
+		#{employee.employeeId}
+	</select>
+
+	<insert id="saveEmployee" keyProperty="employeeId">
+		<selectKey keyProperty="employeeIdSeq" keyColumn="EMP_ID"
+			resultType="int" order="BEFORE">
+			SELECT EMPLOYEE_ID_SEQ.NEXT_VAL FROM DUAL
+		</selectKey>
+		INSERT INTO
+		VINODH.EMPLOYEE
+		(EMP_ID,EMP_NAME,EMP_PHONE,EMP_SALARY,EMP_EMAIL,EMP_DOB)
+		VALUES
+		(#{employeeIdSeq},#{employee.employeeName},#{employee.employeePhone},#{employee.employeeSalary},#{employee.employeeEmail},#{employee.employeeDOB})
+	</insert>
+
+	<insert id="saveMultipleEmployees">
+		INSERT INTO
+		VINODH.EMPLOYEE
+		(EMP_ID,EMP_NAME,EMP_PHONE,EMP_SALARY,EMP_EMAIL,EMP_DOB)
+		VALUES
+		<foreach collection="list" item="eachEmployee">
+			(#{eachEmployee.employeeId},#{eachEmployee.employeeName},#{eachEmployee.employeePhone},#{eachEmployee.employeeSalary},#{eachEmployee.employeeEmail},#{eachEmployee.employeeDOB})
+		</foreach>
+	</insert>
+
+	<update id="updateEmployee">
+		UPDATE VINODH.EMPLOYEE SET
+		EMP_NAME =
+		#{employee.employeeName},
+		EMP_SALARY =
+		#{employee.employeeSalary},
+		EMP_PHONE =
+		#{employee.employeePhone}
+		WHERE
+		EMP_ID =
+		#{employee.employeeId}
+	</update>
+
+	<update id="mergeEmployee">
+		MERGE INTO VINODH.EMPLOYEE SOURCE
+		USING
+		(SELECT 1 FROM DUAL) TARGET
+		ON
+		(SOURCE.USER_ID = #{employee.employeeId})
+		WHEN MATCHED THEN
+		<include refid="updateEmployee"></include>
+		WHEN NOT MATCHED THEN INSERT
+		<include refid="saveEmployee"></include>
+	</update>
+
+
+	<delete id="deleteAllEmployees">
+		DELETE FROM VINODH.EMPLOYEE
+	</delete>
+
+	<delete id="deleteEmployeeById">
+		DELETE FROM VINODH.EMPLOYEE WHERE
+		EMP_ID =
+		#{employeeId}
+	</delete>
+
+
+</mapper>
