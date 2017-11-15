@@ -15,7 +15,7 @@ public interface EmployeeRepository {
 
 	Employee findByName(@Param("employeeName") String employeeName);
 
-	@Select("SELECT EMP_ID,EMP_NAME,EMP_PHONE,EMP_SALARY,EMP_EMAIL,EMP_DOB FROM VINODH.EMPLOYEE")
+	//@Select("SELECT EMP_ID,EMP_NAME,EMP_PHONE,EMP_SALARY,EMP_EMAIL,EMP_DOB FROM VINODH.EMPLOYEE")
 	List<Employee> findAllEmployees();
 
 	int saveEmployee(@Param("employee") Employee employee);
@@ -30,7 +30,7 @@ public interface EmployeeRepository {
 
 	int deleteAllEmployees();
 
-	@Select("SELECT COUNT(1) FROM VINODH.EMPLOYEE WHERE EMP_ID = #{employeeId}")
+	//@Select("SELECT COUNT(1) FROM VINODH.EMPLOYEE WHERE EMP_ID = #{employeeId}")
 	int isEmployeeExist(@Param("employeeId") long employeeId);
 
 }

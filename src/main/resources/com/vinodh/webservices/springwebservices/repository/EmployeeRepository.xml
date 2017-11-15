@@ -37,7 +37,7 @@
 		VINODH.EMPLOYEE WHERE EMP_NAME = #{employeeName}
 	</select>
 
-	<select id="isEmployeeExist">
+	<select id="isEmployeeExist" resultType="int">
 		SELECT COUNT(1) FROM VINODH.EMPLOYEE WHERE
 		EMP_ID =
 		#{employeeId}
@@ -64,8 +64,8 @@
 			(#{eachEmployee.employeeId},#{eachEmployee.employeeName},#{eachEmployee.employeePhone},#{eachEmployee.employeeSalary},#{eachEmployee.employeeEmail},#{eachEmployee.employeeDOB})
 		</foreach>
 	</insert>
-
-	<update id="updateEmployee">
+	
+	<sql id="updateEmployeeSQL">
 		UPDATE VINODH.EMPLOYEE SET
 		EMP_NAME =
 		#{employee.employeeName},
@@ -76,6 +76,18 @@
 		WHERE
 		EMP_ID =
 		#{employee.employeeId}
+	</sql>
+
+	<sql id="insertEmployeeSQL">
+		INSERT INTO
+		VINODH.EMPLOYEE
+		(EMP_ID,EMP_NAME,EMP_PHONE,EMP_SALARY,EMP_EMAIL,EMP_DOB)
+		VALUES
+		(#{employeeIdSeq},#{employee.employeeName},#{employee.employeePhone},#{employee.employeeSalary},#{employee.employeeEmail},#{employee.employeeDOB})
+	</sql>
+
+	<update id="updateEmployee">
+		<include refid="updateEmployeeSQL"></include>
 	</update>
 
 	<update id="mergeEmployee">
@@ -85,9 +97,9 @@
 		ON
 		(SOURCE.USER_ID = #{employee.employeeId})
 		WHEN MATCHED THEN
-		<include refid="updateEmployee"></include>
+		<include refid="updateEmployeeSQL"></include>
 		WHEN NOT MATCHED THEN INSERT
-		<include refid="saveEmployee"></include>
+		<include refid="insertEmployeeSQL"></include>
 	</update>
 
 

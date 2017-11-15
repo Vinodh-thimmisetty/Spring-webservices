@@ -30,7 +30,7 @@ public class SampleCRUDController {
 		return new Greeting(new AtomicLong().incrementAndGet(), name);
 	}
 
-	@GetMapping(value = "/isValidEMployee/{employeeId}")
+	@GetMapping(value = "/isValidEmployee/{employeeId}")
 	public ResponseEntity<Boolean> isValidEmployee(@PathVariable("employeeId") long employeeId) {
 		return ResponseEntity.ok(employeeService.isEmployeeExist(employeeId));
 	}
