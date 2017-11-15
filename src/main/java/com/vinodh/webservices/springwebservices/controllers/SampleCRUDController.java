@@ -3,8 +3,6 @@ package com.vinodh.webservices.springwebservices.controllers;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +33,12 @@ public class SampleCRUDController {
 		return ResponseEntity.ok(employeeService.isEmployeeExist(employeeId));
 	}
 
-	@GetMapping(value = "/userslist")
+	@GetMapping(value = "/getEmployee/{employeeId}")
+	public ResponseEntity<Employee> findById(@PathVariable("employeeId") long employeeId) {
+		return ResponseEntity.ok(employeeService.findById(employeeId));
+	}
+
+	@GetMapping(value = "/employeeList")
 	public ResponseEntity<List<Employee>> listAllUsers() {
 		return new ResponseEntity<>(employeeService.findAllEmployees(), HttpStatus.OK);
 	}
