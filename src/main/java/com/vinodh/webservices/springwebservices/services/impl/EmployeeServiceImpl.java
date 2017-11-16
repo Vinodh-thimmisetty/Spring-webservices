@@ -24,7 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee findByName(String name) {
 
-		return null;
+		return employeeRepository.findByName(name);
 	}
 
 	@Override
@@ -35,31 +35,30 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public int saveEmployee(Employee employee) {
 
-		return 0;
+		return employeeRepository.saveEmployee(employee);
 	}
 
 	@Override
 	public int updateEmployee(Employee employee) {
-
-		return 0;
+		return employeeRepository.updateEmployee(employee);
 	}
 
 	@Override
 	public int mergeEmployee(Employee employee) {
 
-		return 0;
+		return employeeRepository.mergeEmployee(employee);
 	}
 
 	@Override
 	public int deleteEmployeeById(long id) {
 
-		return 0;
+		return employeeRepository.deleteEmployeeById(id);
 	}
 
 	@Override
 	public int deleteAllEmployees() {
 
-		return 0;
+		return employeeRepository.deleteAllEmployees();
 	}
 
 	@Override
