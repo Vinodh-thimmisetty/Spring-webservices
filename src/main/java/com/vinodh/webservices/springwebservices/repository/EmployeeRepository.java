@@ -1,25 +1,16 @@
 package com.vinodh.webservices.springwebservices.repository;
 
-import java.time.LocalDate;
-
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
-
 import org.apache.ibatis.annotations.Insert;
-
 import org.apache.ibatis.annotations.Param;
-
 import org.apache.ibatis.annotations.Result;
-
 import org.apache.ibatis.annotations.Results;
-
 import org.apache.ibatis.annotations.Select;
-
 import org.apache.ibatis.annotations.SelectKey;
-
 import org.apache.ibatis.annotations.Update;
-
 import org.springframework.stereotype.Repository;
 
 import com.vinodh.webservices.springwebservices.domain.Employee;
@@ -54,7 +45,7 @@ public interface EmployeeRepository {
 
 			@Result(column = "EMP_EMAIL", property = "employeeEmail", javaType = String.class),
 
-			@Result(column = "EMP_DOB", property = "employeeDOB", javaType = LocalDate.class)
+			@Result(column = "EMP_DOB", property = "employeeDOB", javaType = Date.class)
 
 	})
 
@@ -90,7 +81,7 @@ public interface EmployeeRepository {
 
 			@Result(column = "EMP_EMAIL", property = "employeeEmail", javaType = String.class),
 
-			@Result(column = "EMP_DOB", property = "employeeDOB", javaType = LocalDate.class)
+			@Result(column = "EMP_DOB", property = "employeeDOB", javaType = Date.class)
 
 	})
 
@@ -114,7 +105,7 @@ public interface EmployeeRepository {
 
 	})
 
-	@SelectKey(statement = "select VINODH.AUDIT_LOG_ID_SEQ.nextval from dual", before = true, keyProperty = "employee.employeeId", resultType = Long.class)
+	@SelectKey(statement = "select VINODH.EMPLOYEE_ID_SEQ.nextval from dual", before = true, keyProperty = "employee.employeeId", resultType = Long.class)
 
 	int saveEmployee(@Param("employee") Employee employee);
 

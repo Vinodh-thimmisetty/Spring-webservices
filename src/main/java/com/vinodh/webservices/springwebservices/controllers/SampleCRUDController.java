@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -74,7 +76,7 @@ public class SampleCRUDController {
 	}
 
 	@PostMapping(value = "/saveNewEmployee")
-	public ResponseEntity<Integer> saveEmployee(@RequestBody Employee employee) {
+	public ResponseEntity<Integer> saveEmployee(@Valid @RequestBody Employee employee) {
 		return ResponseEntity.ok(employeeService.saveEmployee(employee));
 	}
 
