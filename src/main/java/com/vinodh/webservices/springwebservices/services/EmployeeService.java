@@ -2,23 +2,21 @@ package com.vinodh.webservices.springwebservices.services;
 
 import java.util.List;
 
-import com.vinodh.webservices.springwebservices.domain.Employee;
+public interface EmployeeService<T> {
 
-public interface EmployeeService {
+	T findById(long id);
 
-	Employee findById(long id);
+	T findByName(String name);
 
-	Employee findByName(String name);
+	List<T> findAllEmployees();
 
-	List<Employee> findAllEmployees();
+	int saveEmployee(T employee);
 
-	int saveEmployee(Employee employee);
+	int saveMultipleEmployees(List<T> employees);
 
-	int saveMultipleEmployees(List<Employee> employees);
+	int updateEmployee(T employee);
 
-	int updateEmployee(Employee employee);
-
-	int mergeEmployee(Employee employee);
+	int mergeEmployee(T employee);
 
 	int deleteEmployeeById(long id);
 

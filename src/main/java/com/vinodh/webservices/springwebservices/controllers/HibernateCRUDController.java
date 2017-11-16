@@ -24,16 +24,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vinodh.webservices.springwebservices.domain.Employee;
+import com.vinodh.webservices.springwebservices.domain.EmployeeEntity;
 import com.vinodh.webservices.springwebservices.domain.Greeting;
 import com.vinodh.webservices.springwebservices.services.EmployeeService;
 
 @RestController
-@RequestMapping(value = "/spring-webservices")
-public class SampleCRUDController {
+@RequestMapping(value = "/spring-webservices/hibernate")
+public class HibernateCRUDController {
 
 	@Autowired
-	EmployeeService employeeService;
+	EmployeeService<EmployeeEntity> hibernateEmployeeService;
 
 	@GetMapping(value = "/test")
 	public Greeting greeting(@RequestParam(value = "name", defaultValue = "vinodh") String name) {
@@ -42,52 +42,52 @@ public class SampleCRUDController {
 
 	@GetMapping(value = "/isValidEmployee/{employeeId}")
 	public ResponseEntity<Boolean> isValidEmployee(@PathVariable("employeeId") long employeeId) {
-		return ResponseEntity.ok(employeeService.isEmployeeExist(employeeId));
+		return ResponseEntity.ok(hibernateEmployeeService.isEmployeeExist(employeeId));
 	}
 
 	@GetMapping(value = "/getEmployee/{employeeId}")
-	public ResponseEntity<Employee> findById(@PathVariable("employeeId") long employeeId) {
-		return ResponseEntity.ok(employeeService.findById(employeeId));
+	public ResponseEntity<EmployeeEntity> findById(@PathVariable("employeeId") long employeeId) {
+		return ResponseEntity.ok(hibernateEmployeeService.findById(employeeId));
 	}
 
 	@GetMapping(value = "/getAllEmployees")
-	public ResponseEntity<List<Employee>> findAllEmployees() {
-		return ResponseEntity.ok(employeeService.findAllEmployees());
+	public ResponseEntity<List<EmployeeEntity>> findAllEmployees() {
+		return ResponseEntity.ok(hibernateEmployeeService.findAllEmployees());
 	}
 
 	@GetMapping(value = "/userslist")
-	public ResponseEntity<List<Employee>> listAllUsers() {
-		return new ResponseEntity<>(employeeService.findAllEmployees(), HttpStatus.OK);
+	public ResponseEntity<List<EmployeeEntity>> listAllUsers() {
+		return new ResponseEntity<>(hibernateEmployeeService.findAllEmployees(), HttpStatus.OK);
 	}
 
 	@PutMapping(value = "/updateEmployee/{employeeId}")
 	public ResponseEntity<Integer> updateEmployee(@PathVariable("employeeId") long employeeId,
-			@RequestBody Employee employee) {
+			@RequestBody EmployeeEntity employee) {
 		employee.setEmployeeId(employeeId);
-		return ResponseEntity.ok(employeeService.updateEmployee(employee));
+		return ResponseEntity.ok(hibernateEmployeeService.updateEmployee(employee));
 	}
 
 	@PostMapping(value = "/mergeEmployee/{employeeId}")
 	public ResponseEntity<Integer> mergeEmployee(@PathVariable("employeeId") long employeeId,
-			@RequestBody Employee employee) {
+			@RequestBody EmployeeEntity employee) {
 		employee.setEmployeeId(employeeId);
-		return ResponseEntity.ok(employeeService.mergeEmployee(employee));
+		return ResponseEntity.ok(hibernateEmployeeService.mergeEmployee(employee));
 
 	}
 
 	@PostMapping(value = "/saveNewEmployee")
-	public ResponseEntity<Integer> saveEmployee(@Valid @RequestBody Employee employee) {
-		return ResponseEntity.ok(employeeService.saveEmployee(employee));
+	public ResponseEntity<Integer> saveEmployee(@Valid @RequestBody EmployeeEntity employee) {
+		return ResponseEntity.ok(hibernateEmployeeService.saveEmployee(employee));
 	}
 
 	@DeleteMapping(value = "/deleteEmployee/{employeeId}")
 	public ResponseEntity<Integer> deleteEmployee(@PathVariable("employeeId") long employeeId) {
-		return ResponseEntity.ok(employeeService.deleteEmployeeById(employeeId));
+		return ResponseEntity.ok(hibernateEmployeeService.deleteEmployeeById(employeeId));
 	}
 
 	@DeleteMapping(value = "/deleteAllEmployees")
 	public ResponseEntity<Integer> deleteAllEmployee() {
-		return ResponseEntity.ok(employeeService.deleteAllEmployees());
+		return ResponseEntity.ok(hibernateEmployeeService.deleteAllEmployees());
 	}
 
 	@InitBinder

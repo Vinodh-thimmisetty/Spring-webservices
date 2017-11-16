@@ -9,8 +9,8 @@ import com.vinodh.webservices.springwebservices.domain.Employee;
 import com.vinodh.webservices.springwebservices.repository.EmployeeRepository;
 import com.vinodh.webservices.springwebservices.services.EmployeeService;
 
-@Service
-public class EmployeeServiceImpl implements EmployeeService {
+@Service("mybatisEmployeeService")
+public class MybatisEmployeeServiceImpl implements EmployeeService<Employee> {
 
 	@Autowired
 	EmployeeRepository employeeRepository;

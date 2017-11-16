@@ -16,7 +16,6 @@ import org.springframework.stereotype.Repository;
 import com.vinodh.webservices.springwebservices.domain.Employee;
 
 @Repository
-
 public interface EmployeeRepository {
 
 	/**
