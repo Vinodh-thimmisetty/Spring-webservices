@@ -12,11 +12,13 @@
   8. JSR-303 bean validations
   
   
- # Hibernate Mapping Details
-   
-   one-one relationship between EMPLOYEE vs ADDRESS
-   one-many relationship between EMPLOYEE vs PROJECTS
-   one-many relationship between PROJECTS vs TECHNOLOGIES
-  
                                 #  Note: All the code will be based on most recent versions.
  
+
+  
+ # Hibernate Mapping Details
+   
+    # one-one relationship between EMPLOYEE vs ADDRESS
+    # one-many relationship between EMPLOYEE vs PROJECTS
+    # one-many relationship between PROJECTS vs TECHNOLOGIES
+  
