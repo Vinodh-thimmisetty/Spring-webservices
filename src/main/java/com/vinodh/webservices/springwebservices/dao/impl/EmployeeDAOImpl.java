@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.vinodh.webservices.springwebservices.dao.EmployeeDAO;
-import com.vinodh.webservices.springwebservices.domain.EmployeeEntity;
+import com.vinodh.webservices.springwebservices.entity.EmployeeEntity;
 
 import lombok.extern.slf4j.Slf4j;
 

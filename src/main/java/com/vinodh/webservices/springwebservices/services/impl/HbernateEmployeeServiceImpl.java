@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vinodh.webservices.springwebservices.dao.EmployeeDAO;
-import com.vinodh.webservices.springwebservices.domain.EmployeeEntity;
+import com.vinodh.webservices.springwebservices.entity.EmployeeEntity;
 import com.vinodh.webservices.springwebservices.services.EmployeeService;
 
 @Service("hibernateEmployeeService")

@@ -2,7 +2,7 @@ package com.vinodh.webservices.springwebservices.dao;
 
 import java.util.List;
 
-import com.vinodh.webservices.springwebservices.domain.EmployeeEntity;
+import com.vinodh.webservices.springwebservices.entity.EmployeeEntity;
 
 public interface EmployeeDAO {
 
