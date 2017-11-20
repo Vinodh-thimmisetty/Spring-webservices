@@ -20,6 +20,6 @@ public class ProjectsEnityId implements java.io.Serializable {
 	@Column(name = "PROJECT_ID")
 	private Integer projectId;
 	@Column(name = "EMP_ID")
-	private Integer empId;
+	private Long employeeId;
 
 }

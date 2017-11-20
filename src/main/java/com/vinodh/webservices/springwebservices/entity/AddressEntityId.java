@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
-public class AddressEnityId implements java.io.Serializable {
+public class AddressEntityId implements java.io.Serializable {
 
 	/**
 	 * 
@@ -20,6 +20,6 @@ public class AddressEnityId implements java.io.Serializable {
 	@Column(name = "ADDRESS_ID", nullable = false)
 	private Integer addressId;
 	@Column(name = "EMP_ID", nullable = false)
-	private Integer empId;
+	private Long employeeId;
 
 }

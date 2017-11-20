@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
+
+	private Integer addressId;
+	private Long employeeId;
 	private String streetName;
 	private String cityName;
 	private String stateName;

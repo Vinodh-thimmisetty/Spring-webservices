@@ -2,9 +2,8 @@ package com.vinodh.webservices.springwebservices.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,6 +22,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,11 +41,16 @@ import lombok.NoArgsConstructor;
 		@NamedQuery(name = "employee.findbyId", query = "from EmployeeEntity where employeeId = :employeeId"),
 		@NamedQuery(name = "employee.findbyName", query = "from EmployeeEntity where employeeName = :employeeName"),
 		@NamedQuery(name = "employee.findAllEmployees", query = "from EmployeeEntity"),
+		// @NamedQuery(name = "employee.findAllEmployees", query = "from EmployeeEntity
+		// e inner join ParentsEntity p on e.emp_id = p.emp_id inner join ProjectEntity
+		// pr on e.emp_id = pr.emp_id inner join AddressEnity a on e.emp_id =
+		// a.emp_id"),
 		@NamedQuery(name = "employee.isEmployeeExist", query = "from EmployeeEntity e where employeeId = :employeeId"),
 		@NamedQuery(name = "employee.deleteEmployeeById", query = "delete EmployeeEntity where employeeId = :employeeId"),
 		@NamedQuery(name = "employee.deleteAllEmployees", query = "delete EmployeeEntity")
 
 })
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "employeeId")
 public class EmployeeEntity implements Serializable {
 	/**
 	 * 
@@ -70,10 +78,16 @@ public class EmployeeEntity implements Serializable {
 	@Past
 	private Date employeeDOB;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties(value="employee",allowSetters=true)
+	private ParentsEntity parents;
+
+	/*// @JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL)
 	private Set<ProjectEntity> projects = new HashSet<>(0);
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
-	private Set<AddressEnity> addresses = new HashSet<>(0);
+	// @JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL)
+	private Set<AddressEnity> addresses = new HashSet<>(0);*/
 
 }

@@ -1,6 +1,7 @@
 package com.vinodh.webservices.springwebservices.domain;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -22,4 +23,7 @@ public class Employee {
 	private String employeeEmail;
 	@Past
 	private Date employeeDOB;
+	private Parents parents;
+	private Set<Project> projects;
+	private Set<Address> addresses;
 }

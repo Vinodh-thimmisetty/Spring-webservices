@@ -18,7 +18,7 @@
   
  # Hibernate Mapping Details
    
-    # one-one relationship between EMPLOYEE vs ADDRESS
-    # one-many relationship between EMPLOYEE vs PROJECTS
-    # one-many relationship between PROJECTS vs TECHNOLOGIES
+    # one-one relationship between EMPLOYEE vs PARENTS
+    # one-many relationship between EMPLOYEE vs ADDRESS
+    # one-many relationship between PROJECTS vs PROJECTS
   

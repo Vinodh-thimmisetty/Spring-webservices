@@ -10,7 +10,7 @@ import com.vinodh.webservices.springwebservices.entity.EmployeeEntity;
 import com.vinodh.webservices.springwebservices.services.EmployeeService;
 
 @Service("hibernateEmployeeService")
-public class HbernateEmployeeServiceImpl implements EmployeeService<EmployeeEntity> {
+public class HibernateEmployeeServiceImpl implements EmployeeService<EmployeeEntity> {
 
 	@Autowired
 	EmployeeDAO employeeDAO;

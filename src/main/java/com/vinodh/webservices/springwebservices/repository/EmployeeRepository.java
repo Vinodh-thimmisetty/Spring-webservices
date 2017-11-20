@@ -48,8 +48,8 @@ public interface EmployeeRepository {
 
 	})
 
-	@Select("SELECT EMP_ID,EMP_NAME,EMP_PHONE,EMP_SALARY,EMP_EMAIL,EMP_DOB FROM VINODH.EMPLOYEE WHERE EMP_ID = #{employeeId}")
-
+	//@Select("SELECT EMP_ID,EMP_NAME,EMP_PHONE,EMP_SALARY,EMP_EMAIL,EMP_DOB FROM VINODH.EMPLOYEE WHERE EMP_ID = #{employeeId}")
+	@Select("SELECT * from VINODH.Employee e inner join VINODH.Parents p on e.emp_id = p.emp_id inner join VINODH.Projects pr on e.emp_id = pr.emp_id inner join VINODH.Address a on e.emp_id = a.emp_id")
 	Employee findById(@Param("employeeId") long employeeId);
 
 	@Select("SELECT * FROM VINODH.EMPLOYEE WHERE EMP_NAME = #{employeeName}")

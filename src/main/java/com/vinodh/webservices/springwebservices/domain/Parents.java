@@ -7,13 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Project {
+public class Parents {
 
-	private Integer projectId;
 	private Long employeeId;
-	private String projectName;
-	private String clientName;
-	private Integer projectPeriod;
-	private String projectStatus;
+	private String fatherName;
+	private Integer fatherPhone;
+	private Integer motherName;
+	private Integer motherPhone;
 
 }

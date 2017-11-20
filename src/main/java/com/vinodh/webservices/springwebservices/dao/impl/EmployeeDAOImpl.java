@@ -3,12 +3,15 @@ package com.vinodh.webservices.springwebservices.dao.impl;
 import java.util.List;
 
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vinodh.webservices.springwebservices.dao.EmployeeDAO;
 import com.vinodh.webservices.springwebservices.entity.EmployeeEntity;
@@ -23,11 +26,16 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	@Override
+	@SuppressWarnings("deprecation")
+	@Override 
+	@Transactional(propagation=Propagation.REQUIRED)
 	public EmployeeEntity findById(long id) {
 		log.info("Fetching Employee info of {}", id);
 		Session currentSession = sessionFactory.getCurrentSession();
-		return currentSession.get(EmployeeEntity.class, Long.valueOf(id));
+		//return currentSession.get(EmployeeEntity.class, Long.valueOf(id));
+		Criteria criteria = currentSession.createCriteria(EmployeeEntity.class);
+		criteria.add(Restrictions.idEq(id));
+		return (EmployeeEntity) criteria.uniqueResult();
 	}
 
 	@Override
@@ -38,13 +46,15 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return (EmployeeEntity) query.getSingleResult();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public List<EmployeeEntity> findAllEmployees() {
 		Session currentSession = sessionFactory.getCurrentSession();
-		Query query = currentSession.createNamedQuery("employee.findAllEmployees");
-		return query.getResultList();
+		//Query query = currentSession.createNamedQuery("employee.findAllEmployees");
+		// return query.getResultList();
 
+		return currentSession.createCriteria(EmployeeEntity.class).list();
+		
 	}
 
 	@Override

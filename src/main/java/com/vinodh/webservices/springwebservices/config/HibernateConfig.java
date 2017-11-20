@@ -33,7 +33,7 @@ public class HibernateConfig {
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-		sessionFactoryBean.setPackagesToScan("com.vinodh.webservices.springwebservices.domain");
+		sessionFactoryBean.setPackagesToScan("com.vinodh.webservices.springwebservices.entity");
 		sessionFactoryBean.setDataSource(databaseConfig.dataSource());
 		sessionFactoryBean.setHibernateProperties(hibernateProperties());
 		return sessionFactoryBean;

@@ -5,4 +5,5 @@
 	<table-filter match-name="ADDRESS" match-schema="VINODH"></table-filter>
 	<table-filter match-name="EMPLOYEE" match-schema="VINODH"></table-filter>
 	<table-filter match-name="PROJECTS" match-schema="VINODH"></table-filter>
+	<table-filter match-name="PARENTS" match-schema="VINODH"></table-filter>
 </hibernate-reverse-engineering>
