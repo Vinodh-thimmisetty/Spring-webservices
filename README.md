@@ -21,4 +21,9 @@
     # one-one relationship between EMPLOYEE vs PARENTS
     # one-many relationship between EMPLOYEE vs ADDRESS
     # one-many relationship between PROJECTS vs PROJECTS
+    
+    
+ # oAuth2 details:
+    # Generate Access token by passing client id:: sample-client and client-secret:: secret as basic auth type and do POST on http://localhost:9090/oauth/token?grant_type=password&username=Vinodh&password=abcd1234
+    # Sample Get::  http://localhost:9090/spring-webservices/mybatis/updateEmployee/5?access_token=63607ed7-27ab-45bd-94bd-2ed63227ed20
   
