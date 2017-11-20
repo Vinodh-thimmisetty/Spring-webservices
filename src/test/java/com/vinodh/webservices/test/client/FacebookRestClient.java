@@ -21,7 +21,7 @@ public class FacebookRestClient {
 	// "https://graph.facebook.com/{appId}?fields=name,namespace,contact_email,website_url";
 	// private static final String endPoint =
 	// "https://graph.facebook.com/100001938558533?fields=name,first_name,gender,namespace,contact_email,relationship_status,website_url,age_range,admin_notes,birthday,employee_number,token_for_business,public_key";
-	private static final String endPoint = "https://graph.facebook.com/100001938558533?fields=first_name,gender,email,relationship_status";
+	private static final String endPoint = "https://graph.facebook.com/######?fields=first_name,gender,email,relationship_status";
 	public static final String FACEBOOK_HOST = "https://graph.facebook.com/";
 
 	public static final String ACCESS_TOKEN = FACEBOOK_HOST + "v2.5/oauth/access_token";
@@ -34,9 +34,9 @@ public class FacebookRestClient {
 
 		log.info("connecting to Facebook");
 
-		String appToken = fetchApplicationAccessToken("871275273038741", "cd27dc2d87e5bf22786503a2374ad89c");
+		String appToken = fetchApplicationAccessToken("####", "#####");
 		log.info("/////////" + appToken);
-		AppDetails appDetails = fetchApplicationData("871275273038741", appToken);
+		AppDetails appDetails = fetchApplicationData("#####", appToken);
 
 		log.info("........." + appDetails.toString());
 	}
