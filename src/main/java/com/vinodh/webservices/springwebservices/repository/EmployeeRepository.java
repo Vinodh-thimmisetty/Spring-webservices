@@ -44,12 +44,15 @@ public interface EmployeeRepository {
 
 			@Result(column = "EMP_EMAIL", property = "employeeEmail", javaType = String.class),
 
-			@Result(column = "EMP_DOB", property = "employeeDOB", javaType = Date.class)
+			@Result(column = "EMP_DOB", property = "employeeDOB", javaType = Date.class),
+
+			// @Result(column = "EMP_ID", property = "parents", javaType=Employee.class),
 
 	})
 
-	//@Select("SELECT EMP_ID,EMP_NAME,EMP_PHONE,EMP_SALARY,EMP_EMAIL,EMP_DOB FROM VINODH.EMPLOYEE WHERE EMP_ID = #{employeeId}")
-	@Select("SELECT * from VINODH.Employee e inner join VINODH.Parents p on e.emp_id = p.emp_id inner join VINODH.Projects pr on e.emp_id = pr.emp_id inner join VINODH.Address a on e.emp_id = a.emp_id")
+	// @Select("SELECT EMP_ID,EMP_NAME,EMP_PHONE,EMP_SALARY,EMP_EMAIL,EMP_DOB FROM
+	// VINODH.EMPLOYEE WHERE EMP_ID = #{employeeId}")
+	@Select("SELECT * from VINODH.EMPLOYEE e left outer join VINODH.Parents p on e.emp_id = p.emp_id left outer join VINODH.Projects pr on e.emp_id = pr.emp_id left outer join VINODH.Address a on e.emp_id = a.emp_id where e.emp_id = #{employeeId}")
 	Employee findById(@Param("employeeId") long employeeId);
 
 	@Select("SELECT * FROM VINODH.EMPLOYEE WHERE EMP_NAME = #{employeeName}")
@@ -90,17 +93,17 @@ public interface EmployeeRepository {
 
 	@Insert({
 
-		//@formatter:off
+			// @formatter:off
 
 			"INSERT INTO VINODH.EMPLOYEE "
 
-			+ " (EMP_ID,EMP_NAME,EMP_PHONE,EMP_SALARY,EMP_EMAIL,EMP_DOB)"
+					+ " (EMP_ID,EMP_NAME,EMP_PHONE,EMP_SALARY,EMP_EMAIL,EMP_DOB)"
 
-			+ "	VALUES"
+					+ "	VALUES"
 
-			+ "	(#{employee.employeeId},#{employee.employeeName},#{employee.employeePhone},#{employee.employeeSalary},#{employee.employeeEmail},#{employee.employeeDOB})"
+					+ "	(#{employee.employeeId},#{employee.employeeName},#{employee.employeePhone},#{employee.employeeSalary},#{employee.employeeEmail},#{employee.employeeDOB})"
 
-		//@formatter:on
+			// @formatter:on
 
 	})
 
@@ -126,21 +129,21 @@ public interface EmployeeRepository {
 
 	@Update({
 
-		//@formatter:off
+			// @formatter:off
 
 			"UPDATE VINODH.EMPLOYEE"
 
-			+ " SET"
+					+ " SET"
 
-			+ " EMP_NAME = #{employee.employeeName},"
+					+ " EMP_NAME = #{employee.employeeName},"
 
-			+ " EMP_SALARY = #{employee.employeeSalary},"
+					+ " EMP_SALARY = #{employee.employeeSalary},"
 
-			+ " EMP_PHONE =#{employee.employeePhone}"
+					+ " EMP_PHONE =#{employee.employeePhone}"
 
-			+ " WHERE EMP_ID = #{employee.employeeId}" 
+					+ " WHERE EMP_ID = #{employee.employeeId}"
 
-		//@formatter:on	
+			// @formatter:on
 
 	})
 
@@ -148,75 +151,75 @@ public interface EmployeeRepository {
 
 	@Update({
 
-		//@formatter:off
+			// @formatter:off
 
-		 //"<script>"
+			// "<script>"
 
-		//	+
+			// +
 
-		 "MERGE INTO VINODH.EMPLOYEE SOURCE"
+			"MERGE INTO VINODH.EMPLOYEE SOURCE"
 
-				    + " USING (SELECT 1 FROM DUAL) TARGET"
+					+ " USING (SELECT 1 FROM DUAL) TARGET"
 
 					+ " ON (SOURCE.EMP_ID = #{employee.employeeId})"
 
-				    + " WHEN MATCHED THEN "
+					+ " WHEN MATCHED THEN "
 
 					+ " UPDATE "
 
-				    + " SET"
+					+ " SET"
 
-				 //   + " EMP_ID = #{employee.employeeId},"
+					// + " EMP_ID = #{employee.employeeId},"
 
-				//	+ " <if test='#{employee.employeeName} != null'> "
+					// + " <if test='#{employee.employeeName} != null'> "
 
-				//	+ " <![CDATA[ "
+					// + " <![CDATA[ "
 
 					+ " EMP_NAME = #{employee.employeeName},"
 
-				//	+ " ]]> "
+					// + " ]]> "
 
-				//	+ " </if>" 
+					// + " </if>"
 
-				//	+ " <if test='#{employee.employeeSalary} != null'> "
+					// + " <if test='#{employee.employeeSalary} != null'> "
 
-				//	+ " <![CDATA[ "
+					// + " <![CDATA[ "
 
 					+ " EMP_SALARY = #{employee.employeeSalary},"
 
-				//	+ " ]]> "
+					// + " ]]> "
 
-				//	+ " </if>" 
+					// + " </if>"
 
-				//	+ " <if test='#{employee.employeePhone} != null'> "
+					// + " <if test='#{employee.employeePhone} != null'> "
 
-				//	+ " <![CDATA[ "
+					// + " <![CDATA[ "
 
 					+ " EMP_PHONE =#{employee.employeePhone},"
 
-				//	+ " ]]> "
+					// + " ]]> "
 
-				//	+ " </if>" 
+					// + " </if>"
 
-				//	+ " <if test='#{employee.employeeEmail} != null'> "
+					// + " <if test='#{employee.employeeEmail} != null'> "
 
-				//	+ " <![CDATA[ "
+					// + " <![CDATA[ "
 
 					+ " EMP_EMAIL =#{employee.employeeEmail},"
 
-				//	+ " ]]> "
+					// + " ]]> "
 
-				//	+ " </if>" 
+					// + " </if>"
 
-				//	+ " <if test='#{employee.employeeDOB} != null'> "
+					// + " <if test='#{employee.employeeDOB} != null'> "
 
-				//	+ " <![CDATA[ "
+					// + " <![CDATA[ "
 
 					+ " EMP_DOB =#{employee.employeeDOB}"
 
-				//	+ " ]]> "
+					// + " ]]> "
 
-				//	+ " </if>"  
+					// + " </if>"
 
 					+ "	WHEN NOT MATCHED THEN"
 
@@ -228,9 +231,9 @@ public interface EmployeeRepository {
 
 					+ "	(#{employee.employeeId},#{employee.employeeName},#{employee.employeePhone},#{employee.employeeSalary},#{employee.employeeEmail},#{employee.employeeDOB})"
 
-	//	+ "</script>"
+			// + "</script>"
 
-	 //@formatter:on	
+			// @formatter:on
 
 	})
 

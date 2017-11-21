@@ -4,10 +4,8 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,19 +21,28 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class EmployeeDAOImpl implements EmployeeDAO {
 
+	private static final String EMPLOYEE_ID = "employeeId";
+
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	@SuppressWarnings("deprecation")
-	@Override 
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public EmployeeEntity findById(long id) {
 		log.info("Fetching Employee info of {}", id);
 		Session currentSession = sessionFactory.getCurrentSession();
-		//return currentSession.get(EmployeeEntity.class, Long.valueOf(id));
-		Criteria criteria = currentSession.createCriteria(EmployeeEntity.class);
-		criteria.add(Restrictions.idEq(id));
-		return (EmployeeEntity) criteria.uniqueResult();
+
+		/*
+		 * 
+		 * return currentSession.get(EmployeeEntity.class, Long.valueOf(id));
+		 * 
+		 * Criteria criteria = currentSession.createCriteria(EmployeeEntity.class);
+		 * criteria.add(Restrictions.idEq(id)); return (EmployeeEntity)
+		 * criteria.uniqueResult();
+		 * 
+		 */
+		return currentSession.createNamedQuery("employee.findbyId", EmployeeEntity.class).setParameter(EMPLOYEE_ID, id)
+				.uniqueResult();
 	}
 
 	@Override
@@ -46,15 +53,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return (EmployeeEntity) query.getSingleResult();
 	}
 
-	@SuppressWarnings({ "unchecked", "deprecation" })
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<EmployeeEntity> findAllEmployees() {
 		Session currentSession = sessionFactory.getCurrentSession();
-		//Query query = currentSession.createNamedQuery("employee.findAllEmployees");
-		// return query.getResultList();
+		Query query = currentSession.createNamedQuery("employee.findAllEmployees");
+		return query.getResultList();
 
-		return currentSession.createCriteria(EmployeeEntity.class).list();
-		
 	}
 
 	@Override
@@ -82,7 +87,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public int deleteEmployeeById(long employeeId) {
 		Session currentSession = sessionFactory.getCurrentSession();
-		return currentSession.createNamedQuery("employee.deleteEmployeeById").setParameter("employeeId", employeeId)
+		return currentSession.createNamedQuery("employee.deleteEmployeeById").setParameter(EMPLOYEE_ID, employeeId)
 				.executeUpdate();
 	}
 
@@ -95,8 +100,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public boolean isEmployeeExist(long employeeId) {
 		Session currentSession = sessionFactory.getCurrentSession();
-		Query query = currentSession.createNamedQuery("employee.isEmployeeExist").setParameter("employeeId",
-				employeeId);
+		Query query = currentSession.createNamedQuery("employee.isEmployeeExist").setParameter(EMPLOYEE_ID, employeeId);
 		return !query.getResultList().isEmpty();
 	}
 

@@ -10,8 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,8 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(schema = "VINODH", name = "PROJECTS") 
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="employeeId")
+@Table(schema = "VINODH", name = "PROJECTS")
 public class ProjectsEntity implements java.io.Serializable {
 
 	/**
@@ -33,9 +31,11 @@ public class ProjectsEntity implements java.io.Serializable {
 	@AttributeOverrides({
 			@AttributeOverride(name = "projectId", column = @Column(name = "PROJECT_ID", nullable = false)),
 			@AttributeOverride(name = "employeeId", column = @Column(name = "EMP_ID", nullable = false)) })
+	@JsonIgnore
 	private ProjectsEnityId id;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "EMP_ID", nullable = false, insertable = false, updatable = false)
+	@JsonIgnore
 	private EmployeeEntity employee;
 	@Column(name = "PROJECT_NAME", length = 50)
 	private String projectName;

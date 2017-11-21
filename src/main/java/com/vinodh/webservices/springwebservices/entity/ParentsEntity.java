@@ -12,14 +12,17 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(schema = "VINODH", name = "PARENTS")
-//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="employeeId")
 public class ParentsEntity implements java.io.Serializable {
 
 	/**
@@ -30,17 +33,18 @@ public class ParentsEntity implements java.io.Serializable {
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "EMP_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	@JsonIgnore
 	private Long employeeId;
 	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn 
-	@JsonIgnoreProperties(value="parents",allowSetters=true)
+	@PrimaryKeyJoinColumn
+	@JsonIgnore
 	private EmployeeEntity employee;
 	@Column(name = "FATHER_NAME", length = 50)
 	private String fatherName;
 	@Column(name = "FATHER_PHONE", precision = 22, scale = 0)
-	private Integer fatherPhone;
+	private Long fatherPhone;
 	@Column(name = "MOTHER_NAME", precision = 22, scale = 0)
 	private String motherName;
 	@Column(name = "MOTHER_PHONE", precision = 22, scale = 0)
-	private Integer motherPhone;
+	private Long motherPhone;
 }
