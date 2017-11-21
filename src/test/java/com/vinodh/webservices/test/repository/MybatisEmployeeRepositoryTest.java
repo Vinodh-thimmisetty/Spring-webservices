@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vinodh.webservices.springwebservices.repository.EmployeeRepository;
 import com.vinodh.webservices.test.config.TestSpringAppConfig;
@@ -16,6 +17,7 @@ import com.vinodh.webservices.test.config.TestSpringAppConfig;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestSpringAppConfig.class)
 @EnableTransactionManagement
+@Transactional
 public class MybatisEmployeeRepositoryTest {
 
 	@Autowired
