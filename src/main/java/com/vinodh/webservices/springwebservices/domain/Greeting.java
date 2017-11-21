@@ -1,10 +1,14 @@
 package com.vinodh.webservices.springwebservices.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Greeting {
-	public final long id;
-	public final String content;
+	private long id;
+	private String content;
 	
 }
