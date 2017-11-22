@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
@@ -45,9 +46,23 @@ public class MybatisCRUDController {
 		return ResponseEntity.ok(mybatisEmployeeService.isEmployeeExist(employeeId));
 	}
 
+	/**
+	 * sample HATEOAS implementation
+	 * (Hypertext as the Engine of Application State)
+	 * 
+	 * @param employeeId
+	 * @return ResponseEntity<Employee>
+	 */
 	@GetMapping(value = "/getEmployee/{employeeId}")
 	public ResponseEntity<Employee> findById(@PathVariable("employeeId") long employeeId) {
-		return ResponseEntity.ok(mybatisEmployeeService.findById(employeeId));
+		Employee employee = mybatisEmployeeService.findById(employeeId);
+		employee.add(ControllerLinkBuilder
+				.linkTo(ControllerLinkBuilder.methodOn(MybatisCRUDController.class).findById(employeeId))
+				.withSelfRel());
+		employee.add(ControllerLinkBuilder
+				.linkTo(ControllerLinkBuilder.methodOn(MybatisCRUDController.class).findAllEmployees())
+				.withRel("All Employees"));
+		return ResponseEntity.ok(employee);
 	}
 
 	@GetMapping(value = "/getAllEmployees")

@@ -8,10 +8,14 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import org.springframework.hateoas.ResourceSupport;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class Employee {
+@EqualsAndHashCode(callSuper = false, exclude = { "parents", "projects", "addresses" })
+public class Employee extends ResourceSupport {
 	private Long employeeId;
 	@NotBlank
 	private String employeeName;
