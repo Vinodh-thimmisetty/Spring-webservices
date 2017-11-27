@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.vinodh.webservices.springwebservices.repository.ProjectsRepository">
+
+	<!-- MyBatis inbuilt caching mechanism in seconds for SELECT Queries -->
+	<cache flushInterval="300000" readOnly="true" />
+
+	<!-- Table Information -->
+	<resultMap
+		type="com.vinodh.webservices.springwebservices.entity.ProjectsEntity"
+		id="projectEntityMap">
+
+		<!-- Primary Key Column Mapping -->
+		<id property="id.projectId" column="PROJECT_ID" />
+		<id property="id.employeeId" column="EMP_ID" />
+
+		<!-- Normal Column Mappings -->
+		<result property="projectName" column="PROJECT_NAME" />
+		<result property="clientName" column="CLIENT_NAME" />
+		<result property="projectPeriod" column="PROJECT_PERIOD" />
+		<result property="projectStatus" column="PROJECT_STATUS" />
+
+		<!-- Collection type Mappings -->
+		<collection property="technologyEntities"
+			ofType="com.vinodh.webservices.springwebservices.entity.TechnologyEntity"
+			resultMap="technologiesListMap"></collection>
+
+	</resultMap>
+
+	<resultMap
+		type="com.vinodh.webservices.springwebservices.entity.TechnologyEntity"
+		id="technologiesListMap">
+
+		<id property="techName" column="TECH_NAME" />
+		<result property="techVersion" column="TECH_VERSION" />
+		<result property="techCategory" column="TECH_CATEGORY" />
+
+	</resultMap>
+
+	<!-- id must be same as method name in Mapper class/interface -->
+	<select id="getAllProjects" resultMap="projectEntityMap"
+		parameterType="String" resultType="map">
+
+		SELECT PROJECT_ID,
+		EMP_ID,
+		PROJECT_NAME,
+		CLIENT_NAME,
+		PROJECT_PERIOD,
+		PROJECT_STATUS
+		FROM
+		${schema}.PROJECTS
+
+	</select>
+
+	<select id="projectsCount" resultType="int">
+		<!-- Dynamic SQLs -->
+		SELECT COUNT(1) FROM
+		${schema}.PROJECTS WHERE 1=1
+		<!-- Sample Equality Check -->
+		<if
+			test='filters != null and filters.projectName != null and !("VINODH".equals(filters.projectName))'>
+			AND projectName = #{filters.projectName}
+		</if>
+		<!-- Sample Null Check -->
+		<if
+			test="filters != null and  filters.empName != null and filters.empName != ''">
+			AND projectName = #{filters.projectName}
+		</if>
+
+	</select>
+
+
+</mapper>   
+    
