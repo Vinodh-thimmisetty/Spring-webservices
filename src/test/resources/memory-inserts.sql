@@ -65,6 +65,23 @@ Insert into VINODH.PROJECTS
 Insert into VINODH.PROJECTS
    (EMP_ID, PROJECT_ID, PROJECT_NAME, CLIENT_NAME, PROJECT_PERIOD,PROJECT_STATUS)
  Values
-   (2, 2, 'Spring-mvc', 'Infosys', 2,'Design');   
+   (2, 2, 'Spring-mvc', 'Infosys', 2,'Design'); 
+   
+    /* TECHNOLOGIES Information*/  
+   
+Insert into VINODH.TECHNOLOGIES
+   (TECH_NAME, TECH_VERSION, TECH_CATEGORY)
+ Values
+   ('Spring', '5', 'Web');
+   
+Insert into VINODH.TECHNOLOGIES
+   (TECH_NAME, TECH_VERSION, TECH_CATEGORY)
+ Values
+   ('Mybatis', '3', 'Database');
+   
+Insert into VINODH.TECHNOLOGIES
+   (TECH_NAME, TECH_VERSION, TECH_CATEGORY)
+ Values
+   ('Java', '1.8', 'Programming'); 
       
    
