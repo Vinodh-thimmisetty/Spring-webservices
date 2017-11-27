@@ -1,0 +1,22 @@
+# JNDI Config names::
+jndi.dev-database.name=java:comp/env/jdbc/dev-database
+jndi.prod-database.name=java:comp/env/jdbc/prod-database
+
+# Context xml configs::
+<Resource name="jdbc/dev-database"
+                                             auth="Container"
+                                             type="javax.sql.DataSource"
+                                             username="VINODH"
+                                             password="vinodh"
+                                             driverClassName="oracle.jdbc.driver.OracleDriver"
+                                             url="jdbc:oracle:thin:@localhost:1521:XE"
+                                             validationQuery="select 1 from dual" />
+                                            
+  <Resource name="jdbc/prod-database"
+                                             auth="Container"
+                                             type="javax.sql.DataSource"
+                                             username="PAVAN"
+                                             password="pavan"
+                                             driverClassName="oracle.jdbc.driver.OracleDriver"
+                                             url="jdbc:oracle:thin:@localhost:1521:XE"
+                                             validationQuery="select 1 from dual" />
