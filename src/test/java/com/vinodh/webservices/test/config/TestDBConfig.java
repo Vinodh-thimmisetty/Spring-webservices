@@ -42,7 +42,7 @@ public class TestDBConfig {
 
 	@Bean
 	public DataSource dataSource() {
-		return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.HSQL).setName("VINODH")
+		return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.HSQL).generateUniqueName(true)
 				.addScript("classpath:memory-tables.sql").addScript("classpath:memory-inserts.sql").build();
 	}
 
